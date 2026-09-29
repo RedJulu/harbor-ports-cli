@@ -11,13 +11,24 @@ use cli::Cli;
 
 fn main() {
     let args = Cli::parse();
+    let protocol = args.protocol;
 
     if args.all {
-        list_active_ports(get_active_listeners());
+        list_active_ports(
+            get_active_listeners(protocol),
+            args.full_addr,
+            args.amount,
+            None,
+        );
     } else if let Some(port) = args.kill {
-        kill_port(port, args.force);
+        kill_port(port, args.force, protocol);
     } else if let Some(port) = args.filter {
-        list_active_ports(filter_for_port(port));
+        list_active_ports(
+            filter_for_port(port, protocol),
+            args.full_addr,
+            args.amount,
+            Some(port),
+        );
     } else {
         use clap::CommandFactory;
         let _ = Cli::command().print_help();

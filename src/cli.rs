@@ -1,3 +1,4 @@
+use crate::listener::ProtocolFilter;
 use clap::Parser;
 use clap::builder::styling::{AnsiColor, Effects, Styles};
 
@@ -30,6 +31,29 @@ pub struct Cli {
         help = "Filters for the port number"
     )]
     pub filter: Option<u16>,
+
+    #[arg(
+        short = 'p',
+        long,
+        conflicts_with = "kill",
+        requires = "all",
+        value_enum,
+        default_value_t = ProtocolFilter::All,
+        help = "Filters by Type TCP/UDP/All"
+    )]
+    pub protocol: ProtocolFilter,
+
+    #[arg(long, help = "Show full adresses without shortening", requires = "all")]
+    pub full_addr: bool,
+
+    #[arg(
+        short = 'n',
+        long,
+        value_name = "N",
+        value_parser = clap::value_parser!(u32).range(1..),
+        help = "Show only the first N entries"
+    )]
+    pub amount: Option<u32>,
 
     #[arg(
         short,

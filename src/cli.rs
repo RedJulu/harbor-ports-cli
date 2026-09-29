@@ -1,0 +1,34 @@
+use clap::Parser;
+use clap::builder::styling::{AnsiColor, Effects, Styles};
+
+fn styles() -> Styles {
+    Styles::styled()
+        .header(AnsiColor::BrightCyan.on_default() | Effects::BOLD)
+        .usage(AnsiColor::BrightCyan.on_default() | Effects::BOLD)
+        .literal(AnsiColor::BrightGreen.on_default() | Effects::BOLD)
+        .placeholder(AnsiColor::BrightYellow.on_default())
+}
+
+#[derive(Parser, Debug)]
+#[command(
+    name = "harbor",
+    author = "RedJulu",
+    version = "1.0",
+    about = "⚓ Minimalist & fast port management CLI",
+    styles = styles()
+)]
+pub struct Cli {
+    #[arg(short, long, help = "List all active listening ports")]
+    pub all: bool,
+
+    #[arg(
+        short,
+        long,
+        value_name = "PORT",
+        help = "Kill process running on specified port"
+    )]
+    pub kill: Option<u16>,
+
+    #[arg(long, requires = "kill", help = "Force kill process (SIGKILL)")]
+    pub force: bool,
+}

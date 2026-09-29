@@ -1,0 +1,14 @@
+[package]
+name = "harbor-cli"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "harbor"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+colored = "3.1.1"
+comfy-table = "8.0.1"
+listeners = "0.2"

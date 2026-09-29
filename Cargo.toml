@@ -1,6 +1,6 @@
 [package]
 name = "harbor-ports-cli"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "A minimalist and fast port managment CLI"
 license = "MIT"

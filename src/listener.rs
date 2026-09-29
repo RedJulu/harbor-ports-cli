@@ -23,25 +23,22 @@ pub fn get_active_listeners() -> Vec<PortInfo> {
 }
 
 pub fn terminate_port(port: u16, force: bool) -> bool {
-    if let Ok(listeners) = listeners::get_all() {
-        if let Some(l) = listeners.into_iter().find(|l| l.socket.port() == port) {
-            let signal = if force { 9 } else { 15 };
+    if let Some(info) = get_active_listeners().into_iter().find(|l| l.port == port) {
+        let signal = if force { 9 } else { 15 };
+        #[cfg(unix)]
+        {
+            use std::process::Command;
+            let status = Command::new("kill")
+                .arg(format!("-{}", signal))
+                .arg(info.pid.to_string())
+                .status();
+            return status.is_ok_and(|s| s.success());
+        }
 
-            #[cfg(unix)]
-            {
-                use std::process::Command;
-                let status = Command::new("kill")
-                    .arg(format!("-{}", signal))
-                    .arg(l.process.pid.to_string())
-                    .status();
-                return status.is_ok_and(|s| s.success());
-            }
-
-            #[cfg(not(unix))]
-            {
-                let _ = (signal, l);
-                return false;
-            }
+        #[cfg(not(unix))]
+        {
+            let _ = (signal, l);
+            return false;
         }
     }
     false

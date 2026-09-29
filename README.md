@@ -32,6 +32,9 @@ cargo install --git https://github.com/RedJulu/harbor-ports-cli
 # List all active listening ports
 harbor -a
 
+# List active listener on specified port
+harbor -f 8080
+
 # Kill process running on port 8080 (SIGTERM)
 harbor -k 8080
 

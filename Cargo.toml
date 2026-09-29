@@ -2,6 +2,10 @@
 name = "harbor-cli"
 version = "0.1.0"
 edition = "2024"
+description = "A minimalist and fast port managment CLI"
+license = "MIT"
+repository = "https://github.com/RedJulu/harbor-cli"
+readme = "README.md"
 
 [[bin]]
 name = "harbor"

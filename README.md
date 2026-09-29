@@ -3,7 +3,7 @@
 A lightweight CLI tool written in Rust to list active listening ports and kill processes occupying them.
 
 ```
-⚓ HARBOR (5 active Ports)
+⚓ HARBOR (2 active Ports)
 
 ┌───────────┬───────┬──────────┬───────┐
 │ Adresse   ┆  Port ┆ Prozess  ┆   PID │

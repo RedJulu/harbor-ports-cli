@@ -22,6 +22,13 @@ pub fn get_active_listeners() -> Vec<PortInfo> {
     result
 }
 
+pub fn filter_for_port(port: u16) -> Vec<PortInfo> {
+    get_active_listeners()
+        .into_iter()
+        .filter(|p| p.port == port)
+        .collect()
+}
+
 pub fn terminate_port(port: u16, force: bool) -> bool {
     if let Some(info) = get_active_listeners().into_iter().find(|l| l.port == port) {
         let signal = if force { 9 } else { 15 };

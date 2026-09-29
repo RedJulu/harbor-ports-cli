@@ -22,6 +22,16 @@ pub struct Cli {
     pub all: bool,
 
     #[arg(
+        short = 'f',
+        long,
+        conflicts_with = "all",
+        conflicts_with = "kill",
+        value_name = "PORT",
+        help = "Filters for the port number"
+    )]
+    pub filter: Option<u16>,
+
+    #[arg(
         short,
         long,
         value_name = "PORT",

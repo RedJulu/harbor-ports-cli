@@ -1,4 +1,4 @@
-use crate::listener::{get_active_listeners, terminate_port};
+use crate::listener::{PortInfo, terminate_port};
 use colored::*;
 use comfy_table::presets::UTF8_FULL;
 use comfy_table::{Cell, CellAlignment, Color, ContentArrangement, Table};
@@ -8,10 +8,8 @@ fn is_root() -> bool {
     unsafe { libc::geteuid() == 0 }
 }
 
-pub fn list_active_ports() {
-    let listeners = get_active_listeners();
-
-    if listeners.is_empty() {
+pub fn list_active_ports(data: Vec<PortInfo>) {
+    if data.is_empty() {
         println!(
             "{} No active processes listening on ports.",
             "INFO".blue().bold()
@@ -22,7 +20,7 @@ pub fn list_active_ports() {
     println!(
         "\n     {} {}",
         "⚓ HARBOR".cyan().bold(),
-        format!("({} active Ports)", listeners.len()).bright_black(),
+        format!("({} active Ports)", data.len()).bright_black(),
     );
 
     #[cfg(unix)]
@@ -52,7 +50,7 @@ pub fn list_active_ports() {
             .set_alignment(CellAlignment::Center),
     ]);
 
-    for l in listeners {
+    for l in data {
         table.add_row(vec![
             Cell::new(&l.address)
                 .fg(Color::White)

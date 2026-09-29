@@ -15,4 +15,5 @@ path = "src/main.rs"
 clap = { version = "4.6.7", features = ["derive"] }
 colored = "3.1.1"
 comfy-table = "8.0.1"
+libc = "0.2.189"
 listeners = "0.2"

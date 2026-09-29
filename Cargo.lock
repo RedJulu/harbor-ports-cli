@@ -185,6 +185,7 @@ dependencies = [
  "clap",
  "colored",
  "comfy-table",
+ "libc",
  "listeners",
 ]
 

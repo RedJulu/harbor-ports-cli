@@ -3,6 +3,11 @@ use colored::*;
 use comfy_table::presets::UTF8_FULL;
 use comfy_table::{Cell, CellAlignment, Color, ContentArrangement, Table};
 
+#[cfg(unix)]
+fn is_root() -> bool {
+    unsafe { libc::geteuid() == 0 }
+}
+
 pub fn list_active_ports() {
     let listeners = get_active_listeners();
 
@@ -15,10 +20,17 @@ pub fn list_active_ports() {
     }
 
     println!(
-        "\n     {} {}\n",
+        "\n     {} {}",
         "⚓ HARBOR".cyan().bold(),
-        format!("({} active Ports)", listeners.len()).bright_black()
+        format!("({} active Ports)", listeners.len()).bright_black(),
     );
+
+    #[cfg(unix)]
+    if !is_root() {
+        println!("       {}", "⚠️Limited permissions.".red());
+    };
+
+    println!("\n");
 
     let mut table = Table::new();
     table

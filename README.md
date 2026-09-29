@@ -18,12 +18,12 @@ A lightweight CLI tool written in Rust to list active listening ports and kill p
 
 ### From crates.io
 ```bash
-cargo install harbor-cli
+cargo install harbor-ports-cli
 ```
 
 ### From GitHub
 ```bash
-cargo install --git [https://github.com/RedJulu/harbor-cli](https://github.com/RedJulu/harbor-cli)
+cargo install --git https://github.com/RedJulu/harbor-ports-cli
 ```
 
 ## Usage

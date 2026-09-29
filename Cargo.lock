@@ -179,7 +179,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "harbor-cli"
+name = "harbor-ports-cli"
 version = "0.1.0"
 dependencies = [
  "clap",

@@ -1,10 +1,10 @@
 [package]
-name = "harbor-cli"
+name = "harbor-ports-cli"
 version = "0.1.0"
 edition = "2024"
 description = "A minimalist and fast port managment CLI"
 license = "MIT"
-repository = "https://github.com/RedJulu/harbor-cli"
+repository = "https://github.com/RedJulu/harbor-ports-cli"
 readme = "README.md"
 
 [[bin]]

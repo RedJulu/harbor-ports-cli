@@ -44,7 +44,7 @@ cargo install --git https://github.com/RedJulu/harbor-ports-cli
 | `--full-addr` | Don't shorten long addresses (requires `--all`) |
 | `-k`, `--kill <PORT>` | Kill the process using the given port |
 | `--force` | Use SIGKILL instead of SIGTERM (requires `--kill`) |
-| --json  | Prints the Output in Json format  |
+| `--json`  | Prints the Output in Json format  |
 
 Long IPv6 addresses are shortened by default (e.g. `2001:9e8:4...d19:2754`). The wildcard address `::` is displayed as `[::]`.
 

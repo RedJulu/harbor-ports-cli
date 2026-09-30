@@ -29,9 +29,9 @@ pub struct Cli {
         conflicts_with = "kill",
         conflicts_with = "force",
         value_name = "PORT",
-        help = "Filters for the port number"
+        help = "Filters by port, PID or process name"
     )]
-    pub filter: Option<u16>,
+    pub filter: Option<String>,
 
     #[arg(
         short = 'p',

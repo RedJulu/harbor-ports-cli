@@ -39,10 +39,17 @@ pub fn get_active_listeners(filter: ProtocolFilter) -> Vec<PortInfo> {
         .collect()
 }
 
-pub fn filter_for_port(port: u16, filter: ProtocolFilter) -> Vec<PortInfo> {
+pub fn filter_listeners(query: &str, filter: ProtocolFilter) -> Vec<PortInfo> {
+    let query = query.trim();
+    let needle = query.to_lowercase();
+    let number = query.parse::<u32>().ok();
+
     get_active_listeners(filter)
         .into_iter()
-        .filter(|p| p.port == port)
+        .filter(|p| {
+            number.is_some_and(|n| n == u32::from(p.port) || n == p.pid)
+                || p.process.to_lowercase().contains(&needle)
+        })
         .collect()
 }
 

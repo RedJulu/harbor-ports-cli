@@ -3,7 +3,7 @@ mod listener;
 mod net;
 
 use crate::{
-    listener::{filter_for_port, get_active_listeners},
+    listener::{filter_listeners, get_active_listeners},
     net::{kill_port, list_active_ports},
 };
 use clap::Parser;
@@ -23,12 +23,12 @@ fn main() {
         );
     } else if let Some(port) = args.kill {
         kill_port(port, args.force, protocol);
-    } else if let Some(port) = args.filter {
+    } else if let Some(query) = args.filter {
         list_active_ports(
-            filter_for_port(port, protocol),
+            filter_listeners(&query, protocol),
             args.full_addr,
             args.amount,
-            Some(port),
+            Some(query.as_str()),
             args.json,
         );
     } else {

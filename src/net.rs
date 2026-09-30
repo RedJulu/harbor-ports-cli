@@ -12,7 +12,7 @@ pub fn list_active_ports(
     mut data: Vec<PortInfo>,
     full_addr: bool,
     amount: Option<u32>,
-    filter_flag: Option<u16>,
+    filter_flag: Option<&str>,
     json: bool,
 ) {
     data.sort_by(|a, b| (a.port, &a.protocol, &a.address).cmp(&(b.port, &b.protocol, &b.address)));
@@ -30,10 +30,10 @@ pub fn list_active_ports(
 
     if data.is_empty() {
         match filter_flag {
-            Some(port) => println!(
-                "{} No active processes listening on port {}.",
+            Some(query) => println!(
+                "{} No active process matching {}.",
                 "INFO".blue().bold(),
-                port.to_string().yellow(),
+                query.yellow(),
             ),
             None => println!(
                 "{} No active processes listening on ports.",

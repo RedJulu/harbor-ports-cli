@@ -38,12 +38,13 @@ cargo install --git https://github.com/RedJulu/harbor-ports-cli
 | Flag | Description |
 |------|-------------|
 | `-a`, `--all` | List all active ports |
-| `-f`, `--filter <PORT>` | Show listeners on the given port |
+| `-f`, `--filter <PORT>` | Show listeners on the given port, process name or PID |
 | `-p`, `--protocol <tcp\|udp\|all>` | Filter by protocol (default: `all`, requires `--all`) |
 | `-n`, `--amount <N>` | Show only the first `N` entries (minimum 1) |
 | `--full-addr` | Don't shorten long addresses (requires `--all`) |
 | `-k`, `--kill <PORT>` | Kill the process using the given port |
 | `--force` | Use SIGKILL instead of SIGTERM (requires `--kill`) |
+| --json  | Prints the Output in Json format  |
 
 Long IPv6 addresses are shortened by default (e.g. `2001:9e8:4...d19:2754`). The wildcard address `::` is displayed as `[::]`.
 

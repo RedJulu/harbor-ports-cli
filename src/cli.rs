@@ -43,7 +43,7 @@ pub struct Cli {
     )]
     pub protocol: ProtocolFilter,
 
-    #[arg(long, help = "Show full adresses without shortening", requires = "all")]
+    #[arg(long, help = "Show full adresses without shortening", requires = "all", conflicts_with = "kill")]
     pub full_addr: bool,
 
     #[arg(

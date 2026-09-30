@@ -27,6 +27,7 @@ pub struct Cli {
         long,
         conflicts_with = "all",
         conflicts_with = "kill",
+        conflicts_with = "force",
         value_name = "PORT",
         help = "Filters for the port number"
     )]
@@ -43,7 +44,12 @@ pub struct Cli {
     )]
     pub protocol: ProtocolFilter,
 
-    #[arg(long, help = "Show full adresses without shortening", requires = "all", conflicts_with = "kill")]
+    #[arg(
+        long,
+        help = "Show full adresses without shortening",
+        requires = "all",
+        conflicts_with = "kill"
+    )]
     pub full_addr: bool,
 
     #[arg(
@@ -59,6 +65,7 @@ pub struct Cli {
         short,
         long,
         value_name = "PORT",
+        conflicts_with = "all",
         help = "Kill process running on specified port"
     )]
     pub kill: Option<u16>,

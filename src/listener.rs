@@ -45,26 +45,42 @@ pub fn filter_for_port(port: u16, filter: ProtocolFilter) -> Vec<PortInfo> {
 }
 
 pub fn terminate_port(port: u16, force: bool, filter: ProtocolFilter) -> bool {
-    if let Some(info) = get_active_listeners(filter)
+    let Some(info) = get_active_listeners(filter)
         .into_iter()
         .find(|l| l.port == port)
-    {
-        let signal = if force { 9 } else { 15 };
-        #[cfg(unix)]
-        {
-            use std::process::Command;
-            let status = Command::new("kill")
-                .arg(format!("-{}", signal))
-                .arg(info.pid.to_string())
-                .status();
-            return status.is_ok_and(|s| s.success());
-        }
+    else {
+        return false;
+    };
 
-        #[cfg(not(unix))]
-        {
-            let _ = (signal, l);
-            return false;
-        }
+    kill_pid(info.pid, force)
+}
+
+#[cfg(unix)]
+fn kill_pid(pid: u32, force: bool) -> bool {
+    use std::process::Command;
+    let signal = if force { 9 } else { 15 };
+    Command::new("kill")
+        .arg(format!("-{signal}"))
+        .arg(pid.to_string())
+        .status()
+        .is_ok_and(|s| s.success())
+}
+
+#[cfg(windows)]
+fn kill_pid(pid: u32, force: bool) -> bool {
+    use std::process::{Command, Stdio};
+    let mut cmd = Command::new("taskkill");
+    cmd.args(["/PID", &pid.to_string()]);
+    if force {
+        cmd.arg("/F");
     }
+    cmd.stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status()
+        .is_ok_and(|s| s.success())
+}
+
+#[cfg(not(any(unix, windows)))]
+fn kill_pid(_pid: u32, _force: bool) -> bool {
     false
 }

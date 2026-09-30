@@ -19,6 +19,7 @@ fn main() {
             args.full_addr,
             args.amount,
             None,
+            args.json,
         );
     } else if let Some(port) = args.kill {
         kill_port(port, args.force, protocol);
@@ -28,6 +29,7 @@ fn main() {
             args.full_addr,
             args.amount,
             Some(port),
+            args.json,
         );
     } else {
         use clap::CommandFactory;

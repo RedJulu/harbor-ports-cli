@@ -1,4 +1,5 @@
 use listeners::Protocol;
+use serde::Serialize;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
 pub enum ProtocolFilter {
@@ -7,6 +8,7 @@ pub enum ProtocolFilter {
     All,
 }
 
+#[derive(Serialize)]
 pub struct PortInfo {
     pub address: String,
     pub port: u16,

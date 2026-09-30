@@ -13,7 +13,21 @@ pub fn list_active_ports(
     full_addr: bool,
     amount: Option<u32>,
     filter_flag: Option<u16>,
+    json: bool,
 ) {
+    data.sort_by(|a, b| (a.port, &a.protocol, &a.address).cmp(&(b.port, &b.protocol, &b.address)));
+
+    if json {
+        if let Some(n) = amount {
+            data.truncate(n as usize);
+        }
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&data).unwrap_or_else(|_| "[]".to_string())
+        );
+        return;
+    }
+
     if data.is_empty() {
         match filter_flag {
             Some(port) => println!(
@@ -28,8 +42,6 @@ pub fn list_active_ports(
         }
         return;
     }
-
-    data.sort_by(|a, b| (a.port, &a.protocol, &a.address).cmp(&(b.port, &b.protocol, &b.address)));
 
     let total = data.len();
     if let Some(n) = amount {

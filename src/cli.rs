@@ -61,6 +61,9 @@ pub struct Cli {
     )]
     pub amount: Option<u32>,
 
+    #[arg(long, help = "Output as JSON", conflicts_with = "kill")]
+    pub json: bool,
+
     #[arg(
         short,
         long,

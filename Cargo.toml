@@ -1,6 +1,6 @@
 [package]
 name = "harbor-ports-cli"
-version = "0.1.5"
+version = "1.0.0"
 edition = "2024"
 description = "A minimalist and fast port managment CLI"
 license = "MIT"
@@ -17,3 +17,5 @@ colored = "3.1.1"
 comfy-table = "8.0.1"
 libc = "0.2.189"
 listeners = "0.6.1"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
